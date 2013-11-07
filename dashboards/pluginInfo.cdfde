@@ -6101,112 +6101,6 @@
     ]
    },
    {
-    "id": "32e18d99-8078-7943-23d4-5d7305ba3aef",
-    "type": "LayoutColumn",
-    "typeDesc": "Column",
-    "parent": "e2ce9e32-05b0-cd5a-3e89-915e60da0f8f",
-    "properties": [
-     {
-      "name": "name",
-      "value": "newElementAdminLabel",
-      "type": "Id"
-     },
-     {
-      "name": "columnSpan",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "columnPrepend",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "columnAppend",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "columnPrependTop",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "columnAppendBottom",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "columnBorder",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "columnBigBorder",
-      "value": "false",
-      "type": "Boolean"
-     },
-     {
-      "name": "height",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
-     },
-     {
-      "name": "roundCorners",
-      "value": "",
-      "type": "RoundCorners"
-     },
-     {
-      "name": "textAlign",
-      "value": "",
-      "type": "TextAlign"
-     },
-     {
-      "name": "cssClass",
-      "value": "positive formLabel toggleValidation",
-      "type": "String"
-     }
-    ]
-   },
-   {
-    "id": "2d4e8632-4393-451f-3188-a7d36261d52e",
-    "type": "LayoutHtml",
-    "typeDesc": "Html",
-    "parent": "32e18d99-8078-7943-23d4-5d7305ba3aef",
-    "properties": [
-     {
-      "name": "name",
-      "value": "",
-      "type": "Id"
-     },
-     {
-      "name": "html",
-      "value": "Admin Only: ",
-      "type": "Html"
-     },
-     {
-      "name": "fontSize",
-      "value": "",
-      "type": "Integer"
-     },
-     {
-      "name": "color",
-      "value": "",
-      "type": "Color"
-     },
-     {
-      "name": "cssClass",
-      "value": "",
-      "type": "String"
-     }
-    ]
-   },
-   {
     "id": "aab92cfe-0d41-0d82-b30a-eb07ac4aa797",
     "type": "LayoutColumn",
     "typeDesc": "Column",
@@ -6275,6 +6169,79 @@
      {
       "name": "cssClass",
       "value": "formCheckbox positive toggleValidation",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "7f524d1d-f0f6-2a45-c9bc-2d94d6e2e970",
+    "type": "LayoutColumn",
+    "typeDesc": "Column",
+    "parent": "e2ce9e32-05b0-cd5a-3e89-915e60da0f8f",
+    "properties": [
+     {
+      "name": "name",
+      "value": "newElementStartButtonObj",
+      "type": "Id"
+     },
+     {
+      "name": "columnSpan",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "columnPrepend",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnAppend",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnPrependTop",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnAppendBottom",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnBorder",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnBigBorder",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "formCheckbox positive toggleValidation typeKettle toggleType",
       "type": "String"
      }
     ]
@@ -8596,7 +8563,7 @@
      },
      {
       "name": "preExecution",
-      "value": "function f(){\n    var myself = this;\n    this.custom = this.custom || {};\n    this.custom.toggle = function (predicate){\n        var $container = $('#' + myself.htmlObject).parents('.newElementContainer'),\n            previous = $container.hasClass('active'),\n            newPredicate = _.isBoolean(predicate) ? predicate : !previous;\n        $container.toggleClass('active', newPredicate )\n            .toggleClass('inactive', !newPredicate);\n            \n        if (!newPredicate) {\n            Dashboards.fireChange('${p:newElementParam}', \n                {type: \"\", template: \"\", name: \"\", admin: false });\n        }\n    }\n}",
+      "value": "function f(){\n    var myself = this;\n    this.custom = this.custom || {};\n    this.custom.toggle = function (predicate){\n        var $container = $('#' + myself.htmlObject).parents('.newElementContainer'),\n            previous = $container.hasClass('active'),\n            newPredicate = _.isBoolean(predicate) ? predicate : !previous;\n        $container.toggleClass('active', newPredicate )\n            .toggleClass('inactive', !newPredicate)\n            .removeClass (function (index, css) {\n                return (css.match (/\\btype\\S+/g) || []).join(' ');\n            });\n            \n        if (!newPredicate) {\n            Dashboards.fireChange('${p:newElementParam}', \n                {type: \"\", template: \"\", name: \"\", admin: false });\n        }\n    }\n}",
       "type": "JavaScript"
      },
      {
@@ -8622,7 +8589,7 @@
     ]
    },
    {
-    "id": "ea9f9461-fb12-b11f-a060-d716433488a0",
+    "id": "a3cb775a-22f1-3598-4acf-137840696fea",
     "type": "ComponentsbuttonComponent",
     "typeDesc": "Button Component",
     "parent": "OTHERCOMPONENTS",
@@ -8634,7 +8601,7 @@
      },
      {
       "name": "label",
-      "value": "press",
+      "value": "Admin Only:",
       "type": "String"
      },
      {
@@ -8679,7 +8646,85 @@
      },
      {
       "name": "postExecution",
-      "value": "function f(){\n    var $ph =$('#' + this.htmlObject),\n        adminStatus = Dashboards.getParameterValue(\"${p:newElementParam}\").admin;\n    $ph.toggleClass(\"checked\", !!adminStatus);\n    $ph.find('button').empty().append( $('<div/>').addClass('checkMark') );\n}",
+      "value": "function f(){\n    var $ph =$('#' + this.htmlObject),\n        adminStatus = Dashboards.getParameterValue(\"${p:newElementParam}\").admin;\n    $ph.toggleClass(\"checked\", !!adminStatus);\n    $ph.find('button').empty().append( $('<div/>').addClass('checkMark') );\n    $ph.prepend( $('<div/>').addClass('formLabel').text(this.label));\n    \n}",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     }
+    ]
+   },
+   {
+    "id": "ea9f9461-fb12-b11f-a060-d716433488a0",
+    "type": "ComponentsbuttonComponent",
+    "typeDesc": "Button Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "newElementStartButton",
+      "type": "Id"
+     },
+     {
+      "name": "label",
+      "value": "Execute at Start:",
+      "type": "String"
+     },
+     {
+      "name": "listeners",
+      "value": "[]",
+      "type": "Listeners"
+     },
+     {
+      "name": "expression",
+      "value": "function f(){\n    var $ph =$('#' + this.htmlObject),\n        newOpts = Dashboards.getParameterValue(\"${p:newElementParam}\");\n        \n    $ph.toggleClass('checked', !newOpts.start);    \n        \n    // We're getting the object directly, atm. Dashboards.setParameter does nothing\n    // unless Dashboards.getParameterValue starts returning a clone.\n    newOpts.start = !newOpts.start;\n    Dashboards.setParameter('${p:newElementParam}', newOpts);\n\n}",
+      "type": "JavaScript"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "buttonStyle",
+      "value": "classic",
+      "type": "TableStyle"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:newElementStartButtonObj}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "function f(){\n    var $ph =$('#' + this.htmlObject),\n        adminStatus = Dashboards.getParameterValue(\"${p:newElementParam}\").start;\n    $ph.toggleClass(\"checked\", !!adminStatus);\n    $ph.find('button').empty().append( $('<div/>').addClass('checkMark') );\n    $ph.prepend( $('<div/>').addClass('formLabel').text(this.label));\n    \n}",
       "type": "JavaScript"
      },
      {
@@ -8882,16 +8927,6 @@
       "type": "JavaScript"
      },
      {
-      "name": "colWidths",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
-      "name": "colSortable",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
       "name": "expandParameters",
       "value": "[]",
       "type": "ValuesArray"
@@ -8908,7 +8943,7 @@
      },
      {
       "name": "colTypes",
-      "value": "[\"string\",\"string\",\"formattedText\",\"hidden\",\"actionButtons\"]",
+      "value": "[\"string\",\"formattedText\",\"formattedText\",\"hidden\",\"actionButtons\"]",
       "type": "colTypesCustom"
      },
      {
@@ -8917,14 +8952,14 @@
       "type": "Array"
      },
      {
-      "name": "displayLength",
-      "value": "",
-      "type": "Integer"
+      "name": "colWidths",
+      "value": "[]",
+      "type": "Array"
      },
      {
-      "name": "lengthChange",
-      "value": "false",
-      "type": "Boolean"
+      "name": "colSortable",
+      "value": "[]",
+      "type": "Array"
      },
      {
       "name": "expandOnClick",
@@ -8948,6 +8983,16 @@
      },
      {
       "name": "sort",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "displayLength",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "lengthChange",
       "value": "false",
       "type": "Boolean"
      },
@@ -9013,7 +9058,7 @@
      },
      {
       "name": "preExecution",
-      "value": "function f(){\n    \n    var pluginId = Dashboards.getParameterValue('${p:pluginIdParam}'),\n        dialog = Dashboards.getComponentByName('${c:dialogGrabComponent}');\n    \n    // Callbacks\n    var successCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    var errorCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    \n    // Actions \n    var deleteElementAction = function (v, st) {\n        var okCallback = function () {\n                dialog.close();\n                Dashboards.incrementRunningCalls();\n                sparkl.runEndpoint( 'sparkl' , 'deleteElement', {\n                    params: { pluginId: pluginId, elementName: v },\n                    success: sparkl.addRefreshWrapper('pentaho-cdf-dd', successCallback),\n                    error:   sparkl.addRefreshWrapper('pentaho-cdf-dd', errorCallback)\n                });\n            },\n            cancelCallback = function () { \n                dialog.close(); \n            } \n        \n        dialog.open({\n            message:\"You are about to delete \" + v + \". Please, press OK to continue...\",\n            buttons:[\n                { text: \"OK\", click: okCallback },\n                { text: \"Cancel\", click: cancelCallback }\n            ]\n        });\n    }\n\n    \n    // Options\n    var optsLib = {\n        dashboard: {\n            buttons: [\n                {\n                    cssClass: \"viewDashboardButton\",\n                    title: \"View\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"editDashboardButton\",\n                    title: \"Edit\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v +'?mode=edit', {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteDashboardButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction\n                }                \n            ]\n        },\n        kettle: {\n            buttons: [\n                {\n                    cssClass: \"runEndpointButton\",\n                    title: \"Run\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteEndpointButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction                    \n                }\n            ]\n        }\n    }\n\n    var opts = function (st){\n        var type = st.tableData[st.rowIdx][1].toLowerCase();\n        return optsLib[type] || {}\n    };\n    this.setAddInOptions(\"colType\",\"actionButtons\",opts);\n    \n    var textOpts = {\n        textFormat: function (v){\n            return v ? \"Admin Only\" : \"All Users\";\n        }\n    };\n    this.setAddInOptions(\"colType\",\"formattedText\",textOpts);\n    \n}",
+      "value": "function f(){\n    // Preload some images\n    var imgArray = [\n        'static/custom/img/icon-start-active.png',\n        'static/custom/img/icon-start-inactive.png',\n        'static/custom/img/icon-start-hover.png'\n    ]\n    _.each(imgArray, function (el){\n       $('<img/>').attr('src', el); \n    });\n    \n    \n    \n    var pluginId = Dashboards.getParameterValue('${p:pluginIdParam}'),\n        dialog = Dashboards.getComponentByName('${c:dialogGrabComponent}');\n    \n    // Callbacks\n    var successCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    var errorCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    \n    // Actions \n    var deleteElementAction = function (v, st) {\n        var okCallback = function () {\n                dialog.close();\n                Dashboards.incrementRunningCalls();\n                sparkl.runEndpoint( 'sparkl' , 'deleteElement', {\n                    params: { pluginId: pluginId, elementName: v },\n                    success: sparkl.addRefreshWrapper('pentaho-cdf-dd', successCallback),\n                    error:   sparkl.addRefreshWrapper('pentaho-cdf-dd', errorCallback)\n                });\n            },\n            cancelCallback = function () { \n                dialog.close(); \n            } \n        \n        dialog.open({\n            message:\"You are about to delete \" + v + \". Please, press OK to continue...\",\n            buttons:[\n                { text: \"OK\", click: okCallback },\n                { text: \"Cancel\", click: cancelCallback }\n            ]\n        });\n    }\n\n    \n    // Options\n    var optsLib = {\n        dashboard: {\n            buttons: [\n                {\n                    cssClass: \"viewDashboardButton\",\n                    title: \"View\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"editDashboardButton\",\n                    title: \"Edit\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v +'?mode=edit', {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteDashboardButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction\n                }                \n            ]\n        },\n        kettle: {\n            buttons: [\n                {\n                    cssClass: \"runEndpointButton\",\n                    title: \"Run\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteEndpointButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction                    \n                }\n            ]\n        }\n    }\n\n    var opts = function (st){\n        var type = st.tableData[st.rowIdx][1].toLowerCase();\n        return optsLib[type] || {}\n    };\n    this.setAddInOptions(\"colType\",\"actionButtons\",opts);\n    \n    \n    \n    var cat2Opts = {\n        'elementType': {\n            textFormat: function(v,st){\n                var $container = $('<div/>').addClass('typeContainer');\n                $container.append($('<span/>').text(v));\n                if ( v == 'Kettle'){\n                    var $executeContainer = $('<div/>').addClass('executeAtStart')\n                        .toggleClass('active', false)\n                        .prop('title', 'Click to toggle execute at start.')\n                        .click(function (){\n                            $(this).toggleClass('active');\n                        });\n                    $executeContainer.appendTo( $container );            \n                }\n                return $container;\n            }\n        },\n        'adminOnly': {\n            textFormat: function(v,st){\n                return v ? \"Admin Only\" : \"All Users\";\n            }\n        }\n    };\n    this.setAddInOptions(\"colType\",\"formattedText\", function(st){        \n        return cat2Opts[st.category] || {};\n    });\n    \n}",
       "type": "JavaScript"
      },
      {
@@ -10325,7 +10370,7 @@
      },
      {
       "name": "preChange",
-      "value": "",
+      "value": "function f(v){\n     $('#' + this.htmlObject).parents('.newElementContainer')\n        .removeClass (function (index, css) {\n            return (css.match (/\\btype\\S+/g) || []).join(' ');\n        })\n        .addClass('type' + v);  \n}",
       "type": "JavaScript"
      },
      {
@@ -10449,7 +10494,7 @@
     ]
    },
    {
-    "id": "f8774066-88f5-c383-fdf3-2ca7e490f050",
+    "id": "a0d3aa2e-d86f-7637-f659-b53e0294cd8e",
     "type": "Componentscheck",
     "typeDesc": "Check Component",
     "parent": "SELECTORS",
@@ -10467,6 +10512,104 @@
      {
       "name": "parameter",
       "value": "newElementParam.admin",
+      "type": "Parameter"
+     },
+     {
+      "name": "listeners",
+      "value": "['${p:newElementParam}']",
+      "type": "Listeners"
+     },
+     {
+      "name": "parameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "valueAsId",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "dataSource",
+      "type": "Datasource",
+      "value": ""
+     },
+     {
+      "name": "valuesArray",
+      "value": "[[\"yes\",\"Admin Only\"]]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:newElementAdminCheckboxObj}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postFetch",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "function (value) {\n    return !_.isEmpty(value)\n}",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     }
+    ]
+   },
+   {
+    "id": "f8774066-88f5-c383-fdf3-2ca7e490f050",
+    "type": "Componentscheck",
+    "typeDesc": "Check Component",
+    "parent": "SELECTORS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "newElementStartCheckbox",
+      "type": "Id"
+     },
+     {
+      "name": "separator",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "parameter",
+      "value": "newElementParam.executeAtStart",
       "type": "Parameter"
      },
      {
@@ -10769,7 +10912,7 @@
    {
     "id": "60e465f5-cf3e-14ee-1e4d-4d40cdb2a3fc",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10797,7 +10940,7 @@
    {
     "id": "8ca30907-2f5e-80ae-b3c8-30f81b515acc",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10825,7 +10968,7 @@
    {
     "id": "e5e50d36-1e0c-6101-beec-7e7f463a9b6e",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10853,7 +10996,7 @@
    {
     "id": "c3065250-bac9-cc6d-ac23-57e4cf3e017c",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10881,7 +11024,7 @@
    {
     "id": "b4a227aa-9b7b-c736-b174-eaf66b506fc2",
     "type": "ComponentsJavascriptParameter",
-    "typeDesc": "Custom Parameter",
+    "typeDesc": "Custom parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10909,7 +11052,7 @@
    {
     "id": "610ef9bc-5365-0bd2-1ec7-e63897ca7cc8",
     "type": "ComponentsJavascriptParameter",
-    "typeDesc": "Custom Parameter",
+    "typeDesc": "Custom parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10937,7 +11080,7 @@
    {
     "id": "6e8127cd-30b6-a213-cc74-4e1121f5d39e",
     "type": "ComponentsJavascriptParameter",
-    "typeDesc": "Custom Parameter",
+    "typeDesc": "Custom parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10965,7 +11108,7 @@
    {
     "id": "bc85ce31-be23-959c-77bf-81ef042f0349",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -10993,7 +11136,7 @@
    {
     "id": "6812e543-2707-0d37-54b2-505fa0b1f437",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -11021,7 +11164,7 @@
    {
     "id": "bb028ae0-b1e9-b268-eaa5-67cf461c8ca9",
     "type": "ComponentsParameter",
-    "typeDesc": "Parameter",
+    "typeDesc": "Simple parameter",
     "parent": "GENERIC",
     "properties": [
      {
@@ -11049,7 +11192,7 @@
    {
     "id": "721c1130-8afb-076d-d4b3-3edc9f414140",
     "type": "ComponentsJavascriptParameter",
-    "typeDesc": "Custom Parameter",
+    "typeDesc": "Custom parameter",
     "parent": "GENERIC",
     "properties": [
      {

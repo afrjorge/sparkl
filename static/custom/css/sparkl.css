@@ -634,7 +634,7 @@ div.container *{
 }
 
 .newElementContainer .formInput{
-  width: 30%;
+  width: 23%;
 }
 .newElementContainer .formInput input {
   height:100%;
@@ -701,9 +701,9 @@ div.container *{
 }
 
 
-
-
-
+.newElementContainer:not(.typeKettle) .toggleType.typeKettle {
+  display:none;
+}
 
 
 
@@ -713,7 +713,7 @@ div.container *{
   cursor: auto;
 }
 .newElementContainer .formSelector{
-  width: 23%;
+  width: 18%;
 }
 .newElementContainer  .formButton button{
   background: url('../img/add_new.png') no-repeat center center #25BAED;
@@ -721,12 +721,12 @@ div.container *{
 .newElementContainer .formButton button:hover{
   background-color: #009DE2;
 }
-.newElementContainer .formLabel {
+.newElementContainer .formCheckbox .formLabel {
   line-height: 38px;
-  padding-left:20px;
-}
-.newElementContainer .formCheckbox{
-  padding-top:6px;
+  padding-left:10px;
+  display:inline-block;
+  padding-right:5px;
+  padding-top:2px;
 }
 .newElementContainer .formCheckbox button {
   background:#FFFFFF;
@@ -734,6 +734,7 @@ div.container *{
   height:26px;
   width:26px;
   position: relative;
+  top:3px;
 }
 .newElementContainer .formCheckbox .checkMark{
   height:18px;
@@ -827,6 +828,8 @@ thead th:last-child {
 
 /* Body */
 tbody td{
+  height:50px;
+  line-height: 50px;
   text-align: left;
   color: #939292;
   font-size: 15px;
@@ -876,6 +879,28 @@ tbody td.actionButtons .numButtons-3 button{
 }
 tbody td.actionButtons .numButtons-4 button{
   width:25%;
+}
+tbody td .typeContainer {
+  height:100%;
+  position:relative;
+}
+tbody td .typeContainer .executeAtStart{
+  height:100%;
+  width:50px;
+  position:absolute;
+  top:0px;
+  right:0px;
+  display:inline-block;
+  background: url('../img/icon-start-inactive.png') 50% 50% no-repeat transparent;
+  border-left: solid 2px #FFFFFF;
+  cursor:pointer;
+}
+tbody td .typeContainer .executeAtStart.active{
+  background-image:url('../img/icon-start-active.png');
+}
+tbody td .typeContainer .executeAtStart.active:hover,
+tbody td .typeContainer .executeAtStart:hover {
+  background-image:url('../img/icon-start-hover.png');
 }
 
 
