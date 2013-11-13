@@ -8927,18 +8927,13 @@
       "type": "JavaScript"
      },
      {
-      "name": "parameters",
-      "value": "[[\"pluginId\",\"pluginIdParam\"]]",
-      "type": "ValuesArray"
-     },
-     {
       "name": "colHeaders",
-      "value": "[\"Name\",\"Type\",\"Permission\",\"File Name\",\"Actions\",\"executeAtStart\"]",
+      "value": "[\"Name\",\"Type\",\"Permission\",\"File Name\",\"executeAtStart\",\"Actions\"]",
       "type": "Array"
      },
      {
       "name": "colTypes",
-      "value": "[\"string\",\"formattedText\",\"formattedText\",\"hidden\",\"actionButtons\",\"hidden\"]",
+      "value": "[\"string\",\"formattedText\",\"formattedText\",\"hidden\",\"hidden\",\"actionButtons\"]",
       "type": "colTypesCustom"
      },
      {
@@ -8962,9 +8957,9 @@
       "type": "ValuesArray"
      },
      {
-      "name": "paginate",
-      "value": "false",
-      "type": "Boolean"
+      "name": "parameters",
+      "value": "[[\"pluginId\",\"pluginIdParam\"]]",
+      "type": "ValuesArray"
      },
      {
       "name": "filter",
@@ -8997,6 +8992,11 @@
       "type": "Boolean"
      },
      {
+      "name": "paginate",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
       "name": "colSearchable",
       "value": "[]",
       "type": "Array"
@@ -9012,14 +9012,14 @@
       "value": "elementsEndpoint"
      },
      {
-      "name": "sortBy",
-      "value": "[]",
-      "type": "SortByArray"
-     },
-     {
       "name": "sDom",
       "value": "",
       "type": "JavaScript"
+     },
+     {
+      "name": "sortBy",
+      "value": "[]",
+      "type": "SortByArray"
      },
      {
       "name": "priority",
@@ -9063,7 +9063,7 @@
      },
      {
       "name": "postFetch",
-      "value": "function f(data){\n    if(!_.isEmpty(data)){\n        var elementsNamesList = [];\n        _.each( data.resultset, function (el){\n            elementsNamesList.push(el[0]);\n            el.push(el[0]); \n        });\n        Dashboards.setParameter(\"${p:elementsNamesListParam}\",elementsNamesList);\n        data.metadata.push( $.extend( {} , data.metadata[0] ) );\n        var lastMetadataElIdx = data.metadata.length-1;\n        (data.metadata[lastMetadataElIdx]).colIndex = lastMetadataElIdx;\n    \n        // *** Register in sort selector events   \n        var myself = this,\n            selector = Dashboards.getComponentByName('${c:sortSelector}');    \n        // create a property to store the present definition of selector callback\n        this.custom =  this.custom || {};\n        \n        selector.off('custom:update', this.custom.selectorCallback);\n        this.custom.selectorCallback = function (v){\n            var sortCol = -1;\n            _.each(data.metadata, function(el,idx){\n                if(el.colName == v){\n                    sortCol = idx;\n                }\n            });\n            if(sortCol >= 0){\n                this.dataTable.fnSort([ [sortCol, 'asc']])\n            }\n        \n        };\n        selector.on('custom:update', this.custom.selectorCallback, this);\n    \n        // *** Register in View selector events   \n        var myself = this,\n            selector = Dashboards.getComponentByName('${c:viewSelector}');    \n        // create a property to store the present definition of selector callback\n        this.custom =  this.custom || {};\n        \n        selector.off('custom:update', this.custom.selectorCallback);\n        this.custom.selectorCallback = function (v){\n            if(v === 'all'){ v = '' }\n            \n            this.dataTable.fnFilter( v , 1);    \n        };\n        selector.on('custom:update', this.custom.selectorCallback, this);\n    \n        this.extraOptions = [ [ 'bFilter' , true ] ];\n        \n        return data;\n    }else{\n        data = sparkl.createElementsTableEmptyRawData();\n        return data;\n    }\n}",
+      "value": "function f(data){\n    if(!_.isEmpty(data)){\n        \n        var elementsNamesList = _.map( data.resultset, function(el){\n           return el[0]; \n        });\n        Dashboards.setParameter(\"${p:elementsNamesListParam}\",elementsNamesList);\n        \n        // Add last column equal to the first\n        data.metadata.push( $.extend({}, data.metadata[0]));\n        _.each( data.resultset, function(el){\n           el.push(el[0]) \n        });\n    \n    \n        // *** Register in sort selector events   \n        var myself = this,\n            selector = Dashboards.getComponentByName('${c:sortSelector}');    \n        // create a property to store the present definition of selector callback\n        this.custom =  this.custom || {};\n        \n        selector.off('custom:update', this.custom.selectorCallback);\n        this.custom.selectorCallback = function (v){\n            var sortCol = -1;\n            _.each(data.metadata, function(el,idx){\n                if(el.colName == v){\n                    sortCol = idx;\n                }\n            });\n            if(sortCol >= 0){\n                this.dataTable.fnSort([ [sortCol, 'asc']])\n            }\n        \n        };\n        selector.on('custom:update', this.custom.selectorCallback, this);\n    \n        // *** Register in View selector events   \n        var myself = this,\n            selector = Dashboards.getComponentByName('${c:viewSelector}');    \n        // create a property to store the present definition of selector callback\n        this.custom =  this.custom || {};\n        \n        selector.off('custom:update', this.custom.selectorCallback);\n        this.custom.selectorCallback = function (v){\n            if(v === 'all'){ v = '' }\n            \n            this.dataTable.fnFilter( v , 1);    \n        };\n        selector.on('custom:update', this.custom.selectorCallback, this);\n    \n        this.extraOptions = [ [ 'bFilter' , true ] ];\n        \n        return data;\n    }else{\n        data = sparkl.createElementsTableEmptyRawData();\n        return data;\n    }\n}",
       "type": "JavaScript"
      },
      {
