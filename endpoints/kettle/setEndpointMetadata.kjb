@@ -18,7 +18,8 @@
         </parameter>
         <parameter>
             <name>file</name>
-            <default_value>&#47;Users&#47;gundisalwa&#47;Webdetails&#47;Projects&#47;project-bare-solution&#47;system&#47;sparkl&#47;endpoints&#47;kettle&#47;importPlugin.kjb</default_value>
+            <default_value>&#47;Users&#47;gundisalwa&#47;Webdetails&#47;Projects&#47;project-bare-solution&#47;system&#47;testStub111&#47;endpoints&#47;kettle&#47;e1.kjb
+</default_value>
             <description/>
         </parameter>
     </parameters>

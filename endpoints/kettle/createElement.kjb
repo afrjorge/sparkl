@@ -57,6 +57,11 @@
             <description>mandatory</description>
         </parameter>
         <parameter>
+            <name>elementStart</name>
+            <default_value>false</default_value>
+            <description/>
+        </parameter>
+        <parameter>
             <name>elementTemplate</name>
             <default_value>${NULL_VALUE}</default_value>
             <description/>
@@ -104,6 +109,8 @@
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>50006</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
     <slaveservers>
@@ -215,7 +222,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>360</xloc>
-      <yloc>586</yloc>
+      <yloc>587</yloc>
       </entry>
     <entry>
       <name>Element (new) not null?</name>
@@ -357,6 +364,61 @@
       <xloc>175</xloc>
       <yloc>326</yloc>
       </entry>
+    <entry>
+      <name>Set Endpoint Metadata</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;setEndpointMetadata.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>N</pass_all_parameters>
+            <parameter>            <name>executeAtStart</name>
+            <stream_name/>
+            <value>${elementStart}</value>
+            </parameter>            <parameter>            <name>file</name>
+            <stream_name/>
+            <value>${dest_file}
+Parameter	Stream column name	Value
+file		
+</value>
+            </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>572</xloc>
+      <yloc>586</yloc>
+      </entry>
+    <entry>
+      <name>Wait for file</name>
+      <description/>
+      <type>WAIT_FOR_FILE</type>
+      <filename>${dest_file}</filename>
+      <maximum_timeout>10</maximum_timeout>
+      <check_cycle_time>60</check_cycle_time>
+      <success_on_timeout>N</success_on_timeout>
+      <file_size_check>N</file_size_check>
+      <add_filename_result>N</add_filename_result>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>467</xloc>
+      <yloc>588</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -465,6 +527,24 @@
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Copy files</from>
+      <to>Wait for file</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Wait for file</from>
+      <to>Set Endpoint Metadata</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>
