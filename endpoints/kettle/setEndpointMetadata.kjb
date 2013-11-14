@@ -18,7 +18,7 @@
         </parameter>
         <parameter>
             <name>file</name>
-            <default_value>&#47;Users&#47;gundisalwa&#47;Webdetails&#47;Projects&#47;project-bare-solution&#47;system&#47;testStub111&#47;endpoints&#47;kettle&#47;e1.kjb
+            <default_value>&#47;Users&#47;gundisalwa&#47;Webdetails&#47;Projects&#47;project-bare-solution&#47;system&#47;sparkl&#47;endpoints&#47;kettle&#47;deletePlugin.kjb
 </default_value>
             <description/>
         </parameter>
@@ -124,10 +124,13 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
+            <parameter>            <name>file</name>
+            <stream_name/>
+            <value>${file}</value>
+            </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>308</xloc>
+      <xloc>309</xloc>
       <yloc>114</yloc>
       </entry>
     <entry>
