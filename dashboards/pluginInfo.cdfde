@@ -8927,11 +8927,6 @@
       "type": "JavaScript"
      },
      {
-      "name": "colHeaders",
-      "value": "[\"Name\",\"Type\",\"Permission\",\"File Name\",\"executeAtStart\",\"Actions\"]",
-      "type": "Array"
-     },
-     {
       "name": "colTypes",
       "value": "[\"string\",\"formattedText\",\"formattedText\",\"hidden\",\"hidden\",\"actionButtons\"]",
       "type": "colTypesCustom"
@@ -8962,9 +8957,9 @@
       "type": "ValuesArray"
      },
      {
-      "name": "filter",
-      "value": "false",
-      "type": "Boolean"
+      "name": "colHeaders",
+      "value": "[\"Name\",\"Type\",\"Permission\",\"File Name\",\"executeAtStart\",\"Actions\"]",
+      "type": "Array"
      },
      {
       "name": "info",
@@ -8997,6 +8992,11 @@
       "type": "Boolean"
      },
      {
+      "name": "filter",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
       "name": "colSearchable",
       "value": "[]",
       "type": "Array"
@@ -9012,14 +9012,14 @@
       "value": "elementsEndpoint"
      },
      {
-      "name": "sDom",
-      "value": "",
-      "type": "JavaScript"
-     },
-     {
       "name": "sortBy",
       "value": "[]",
       "type": "SortByArray"
+     },
+     {
+      "name": "sDom",
+      "value": "",
+      "type": "JavaScript"
      },
      {
       "name": "priority",
@@ -9058,7 +9058,7 @@
      },
      {
       "name": "preExecution",
-      "value": "function f(){\n    // Preload some images\n    var imgArray = [\n        'static/custom/img/icon-start-active.png',\n        'static/custom/img/icon-start-inactive.png',\n        'static/custom/img/icon-start-hover.png'\n    ]\n    _.each(imgArray, function (el){\n       $('<img/>').attr('src', el); \n    });\n    \n    \n    \n    var pluginId = Dashboards.getParameterValue('${p:pluginIdParam}'),\n        dialog = Dashboards.getComponentByName('${c:dialogGrabComponent}');\n    \n    // Callbacks\n    var successCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    var errorCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    \n    // Actions \n    var deleteElementAction = function (v, st) {\n        var okCallback = function () {\n                dialog.close();\n                Dashboards.incrementRunningCalls();\n                sparkl.runEndpoint( 'sparkl' , 'deleteElement', {\n                    params: { pluginId: pluginId, elementName: v },\n                    success: sparkl.addRefreshWrapper('pentaho-cdf-dd', successCallback),\n                    error:   sparkl.addRefreshWrapper('pentaho-cdf-dd', errorCallback)\n                });\n            },\n            cancelCallback = function () { \n                dialog.close(); \n            } \n        \n        dialog.open({\n            message:\"You are about to delete \" + v + \". Please, press OK to continue...\",\n            buttons:[\n                { text: \"OK\", click: okCallback },\n                { text: \"Cancel\", click: cancelCallback }\n            ]\n        });\n    }\n\n    \n    // Options\n    var optsLib = {\n        dashboard: {\n            buttons: [\n                {\n                    cssClass: \"viewDashboardButton\",\n                    title: \"View\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"editDashboardButton\",\n                    title: \"Edit\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v +'?mode=edit', {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteDashboardButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction\n                }                \n            ]\n        },\n        kettle: {\n            buttons: [\n                {\n                    cssClass: \"runEndpointButton\",\n                    title: \"Run\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteEndpointButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction                    \n                }\n            ]\n        }\n    }\n\n    var opts = function (st){\n        var type = st.tableData[st.rowIdx][1].toLowerCase();\n        return optsLib[type] || {}\n    };\n    this.setAddInOptions(\"colType\",\"actionButtons\",opts);\n    \n    \n    \n    var cat2Opts = {\n        'elementType': {\n            textFormat: function(v,st){\n                var $container = $('<div/>').addClass('typeContainer');\n                $container.append($('<span/>').text(v));\n                if ( v == 'Kettle'){\n                    var $executeContainer = $('<div/>').addClass('executeAtStart')\n                        .toggleClass('active', st.tableData[st.rowIdx][4] == 'true')\n                        .prop('title', 'Click to toggle execute at start.')\n                        .click(function (){\n                            $(this).toggleClass('active');\n                        });\n                    $executeContainer.appendTo( $container );            \n                }\n                return $container;\n            }\n        },\n        'adminOnly': {\n            textFormat: function(v,st){\n                return v ? \"Admin Only\" : \"All Users\";\n            }\n        }\n    };\n    this.setAddInOptions(\"colType\",\"formattedText\", function(st){        \n        return cat2Opts[st.category] || {};\n    });\n    \n}",
+      "value": "function f(){\n    // Preload some images\n    var imgArray = [\n        'static/custom/img/icon-start-active.png',\n        'static/custom/img/icon-start-inactive.png',\n        'static/custom/img/icon-start-hover.png'\n    ]\n    _.each(imgArray, function (el){\n       $('<img/>').attr('src', el); \n    });\n        \n    var pluginId = Dashboards.getParameterValue('${p:pluginIdParam}'),\n        dialog = Dashboards.getComponentByName('${c:dialogGrabComponent}');\n    \n    // Callbacks\n    var successCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    var errorCallback = function (){\n        Dashboards.fireChange('${p:updateDataEvent}');\n        Dashboards.decrementRunningCalls();\n    };\n    \n    // Actions \n    var deleteElementAction = function (v, st) {\n        var okCallback = function () {\n                dialog.close();\n                Dashboards.incrementRunningCalls();\n                sparkl.runEndpoint( 'sparkl' , 'deleteElement', {\n                    params: { pluginId: pluginId, elementName: v },\n                    success: sparkl.addRefreshWrapper('pentaho-cdf-dd', successCallback),\n                    error:   sparkl.addRefreshWrapper('pentaho-cdf-dd', errorCallback)\n                });\n            },\n            cancelCallback = function () { \n                dialog.close(); \n            } \n        \n        dialog.open({\n            message:\"You are about to delete \" + v + \". Please, press OK to continue...\",\n            buttons:[\n                { text: \"OK\", click: okCallback },\n                { text: \"Cancel\", click: cancelCallback }\n            ]\n        });\n    }\n\n    \n    // Options\n    var optsLib = {\n        dashboard: {\n            buttons: [\n                {\n                    cssClass: \"viewDashboardButton\",\n                    title: \"View\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"editDashboardButton\",\n                    title: \"Edit\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v +'?mode=edit', {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteDashboardButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction\n                }                \n            ]\n        },\n        kettle: {\n            buttons: [\n                {\n                    cssClass: \"runEndpointButton\",\n                    title: \"Run\",\n                    action: function (v, st) {\n                        sparkl.changeLocation(Dashboards.getWebAppPath() + '/content/' + pluginId + '/' + v, {}, true);\n                    }\n                },\n                {\n                    cssClass: \"deleteEndpointButton\",\n                    title: \"Delete\",\n                    action: deleteElementAction                    \n                }\n            ]\n        }\n    }\n\n    var opts = function (st){\n        var type = st.tableData[st.rowIdx][1].toLowerCase();\n        return optsLib[type] || {}\n    };\n    this.setAddInOptions(\"colType\",\"actionButtons\",opts);\n    \n    \n    \n    var cat2Opts = {\n        'elementType': {\n            textFormat: function(v,st){\n                var $container = $('<div/>').addClass('typeContainer');\n                $container.append($('<span/>').text(v));\n                if ( v == 'Kettle'){\n                    var start = st.tableData[st.rowIdx][4] == 'true',\n                        $executeContainer = $('<div/>').addClass('executeAtStart')\n                            .toggleClass('active', start)\n                            .prop('title', 'Click to toggle execute at start.')\n                            .click(function (){\n                                Dashboards.incrementRunningCalls();    \n                                sparkl.runEndpoint( 'sparkl' , 'setendpointparameters', {\n                                    params: { \n                                        pluginId: pluginId,\n                                        endpoint: st.tableData[st.rowIdx][0],\n                                        newParams:'executeAtStart,'+ !start +',Set this to true to execute endpoint on server startup.'\n                                    },\n                                    success: successCallback,\n                                    error: errorCallback\n                                });\n                            });\n                    $executeContainer.appendTo( $container );            \n                }\n                return $container;\n            }\n        },\n        'adminOnly': {\n            textFormat: function(v,st){\n                return v ? \"Admin Only\" : \"All Users\";\n            }\n        }\n    };\n    this.setAddInOptions(\"colType\",\"formattedText\", function(st){        \n        return cat2Opts[st.category] || {};\n    });\n    \n      \n    \n}",
       "type": "JavaScript"
      },
      {
